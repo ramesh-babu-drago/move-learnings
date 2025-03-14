@@ -1,0 +1,15 @@
+[package]
+name = "aptos-move-learnings"
+version = "1.0.0"
+authors = []
+
+[addresses]
+aptos_move_learnings = "0x8caf235699f014adea623d347935ab865d0c089d8d2160a60acdc33e4b02a8f6"
+
+[dev-addresses]
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-framework", rev = "testnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-token", rev = "testnet" }
+
+[dev-dependencies]
