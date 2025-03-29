@@ -4,12 +4,13 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-aptos_move_learnings = "0x8caf235699f014adea623d347935ab865d0c089d8d2160a60acdc33e4b02a8f6"
-
+aptos_move_learnings = "0x3a6a091d78b658b2e542417f644dc451892bb4dca6881fcb285f4158cb30ec9d"
+petra_ramesh = "0x2017a7700088555cb3d5f30ecbd282acda8cd8dc236b32a771b4c161639b5cee"
+petra_ramesh2 = "0x43c6ab5301f76e16d8b078f3bfa0ecfd5f8c829bcab1c257b8b7dfc7b77b8886"
 [dev-addresses]
 
 [dependencies]
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-framework", rev = "testnet" }
-AptosToken = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-token", rev = "testnet" }
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-framework", rev = "mainnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir = "aptos-token", rev = "mainnet" }
 
 [dev-dependencies]

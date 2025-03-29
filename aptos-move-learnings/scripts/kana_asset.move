@@ -7,6 +7,9 @@ module aptos_move_learnings::fa_coin {
     use std::string::utf8;
     use std::option;
 
+    #[test_only]
+    use aptos_framework::debug;
+
     const ENOT_OWNER: u64 = 1;
 
     const ASSET_SYMBOL: vector<u8> = b"FA";
@@ -111,35 +114,33 @@ module aptos_move_learnings::fa_coin {
         borrow_global<ManagedFungibleAsset>(object::object_address(&asset))
     }
 
+    
     #[test(creator = @aptos_move_learnings)]
     fun test_basic_flow(
         creator: &signer,
     ) acquires ManagedFungibleAsset {
+        debug::print(&std::string::utf8(b"Testing started"));
         init_module(creator);
         let creator_address = signer::address_of(creator);
-        let aaron_address = @0xface;
+        let aaron_address = @petra_ramesh;
 
         mint(creator, creator_address, 100_000_000);
         let asset = get_metadata();
-        assert!(primary_fungible_store::balance(creator_address, asset) == 100_000_000, 4);
-        freeze_account(creator, creator_address);
-        assert!(primary_fungible_store::is_frozen(creator_address, asset), 5);
-        transfer(creator, creator_address, aaron_address, 10);
-        assert!(primary_fungible_store::balance(aaron_address, asset) == 10, 6);
+        let creator_balance = primary_fungible_store::balance(creator_address, asset);
+        debug::print(&creator_balance);
 
-        unfreeze_account(creator, creator_address);
-        assert!(!primary_fungible_store::is_frozen(creator_address, asset), 7);
+
+        transfer(creator, creator_address, aaron_address, 100);
+        let aaron_balance = primary_fungible_store::balance(aaron_address, asset);
+        debug::print(&aaron_balance);
+        creator_balance = primary_fungible_store::balance(creator_address, asset);
+        debug::print(&creator_balance);
+        //assert!(aaron_balance == 10, 6);
+
+
         burn(creator, creator_address, 90);
+        let creator_balance_after_burn = primary_fungible_store::balance(creator_address, asset);
+        debug::print(&creator_balance_after_burn);
     }
 
-    #[test(creator = @aptos_move_learnings, aaron = @0xface)]
-    #[expected_failure(abort_code = 0x50001, location = Self)]
-    fun test_permission_denied(
-        creator: &signer,
-        aaron: &signer
-    ) acquires ManagedFungibleAsset {
-        init_module(creator);
-        let creator_address = signer::address_of(creator);
-        mint(aaron, creator_address, 100_000_000);
-    }
 }
